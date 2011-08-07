@@ -1,0 +1,61 @@
+BuddyLogger libpurple Plugin
+==============================
+BuddyLogger is a plugin for the instant messaging library libpurple.
+It can be used with IM clients which are based on libpurple like Pidgin.
+
+The purpose of BuddyLogger is to periodically dump the presence states 
+of the complete buddy list into a CSV file.
+
+The data from the CSV file can be used creating statistics of online activity
+of the buddies. The program was written as an experiment to demonstrate 
+how much information is disclosed through presence states from social web 
+platforms like Facebook or Google Talk. Don't be evil and use it on your 
+buddies without their permission.
+
+BUILD
+=====
+
+To build BuddyLogger the source code of a libpurple-based IM client is 
+required. For this example we will assume that the source code of Pidgin 2.9.0 
+is used.
+
+Download Pidgin 2.9.0 source from http://pidgin.im/download/source/ and 
+extract it to a local directory like pidgin-2.9.0/.
+
+Copy buddylogger.c to pidgin-2.9.0/libpurple/plugins/
+
+In pidgin-2.9.0/libpurple/plugins/ run 'make buddylogger.so'. The binary 
+buddylogger.so will be created in the same directory.
+
+RUN
+===
+
+You need to install (and maybe also build) the whole Pidgin client to run 
+the BuddyLogger plugin. Refer to the Pidgin source documentation for 
+instructions.
+
+If Pidgin is already running, stop it.
+
+Copy buddylogger.so to the Pidgin plugins dir (i.e. /usr/lib/pidgin/). 
+Probably you need to be root to do that.
+
+Start Pidgin by calling 'pidgin'. Open the 'Plugins' dialog by selecting 
+'Tools' - 'Plugins' from the menu of the 'Buddy List' window. Find 
+'BuddyLogger' in the list and activate it by clicking the 'Enabled' checkbox 
+next to it. The plugin is now started.
+
+CONFIGURE
+=========
+
+You can configure BuddyLogger by clicking the 'Configure' button at the 
+bottom of the 'Plugins' dialog while 'BuddyLogger' is selected in the list.
+
+Currently BuddyLogger lets you select the location and name of the CSV file 
+and the minimum delay between log entries in seconds. Changes become 
+effective immediately without restart.
+
+Currently BuddyLogger uses libpurple callbacks for buddy state changes to 
+log to the CSV file. There is no separate thread with a timer to to an exact 
+periodic logging. Therefore the configurable time between the logs is a 
+minimum value and no exact logging interval.
+
